@@ -1,0 +1,27 @@
+apiVersion: apps/v1 # precisa ser assim, está dentro do apps
+kind: Deployment
+metadata:
+  name: jmeter-deploy
+spec:
+  replicas: 1
+  selector:
+    # labels que o deployment vai ler
+    matchLabels:      
+      app: jmeter 
+  # são anotações do pod que o deployment vai gerenciar
+  template:
+    metadata:
+      name: jmeter-pod
+      labels:
+        app: jmeter
+    spec:
+      volumes:
+      - name: storage-jmeter
+        persistentVolumeClaim:
+          claimName: jmeter-pvc
+      containers:
+      - name: jmeter-container
+        image: teteo/jmeter
+        volumeMounts:
+        - name: storage-jmeter
+          mountPath: /var/log

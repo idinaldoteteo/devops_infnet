@@ -1,0 +1,5 @@
+br\edu\infnet\vendaApi\controller\model\repository\InformacaoRepository.class
+br\edu\infnet\vendaApi\controller\InformacaoController.class
+br\edu\infnet\vendaApi\controller\model\domain\Informacao.class
+br\edu\infnet\vendaApi\controller\model\service\InformacaoService.class
+br\edu\infnet\vendaApi\VendaApiApplication.class

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jmeter-pv
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 3Gi
+  accessModes:
+    - ReadWriteMany
+    - ReadWriteOnce
+  hostPath:
+    path: "/G/@WorkSpace_Eclipse/faculdade_devops/vendaApi/k8s/logs"

@@ -1,0 +1,29 @@
+apiVersion: apps/v1 # precisa ser assim, está dentro do apps
+kind: Deployment
+metadata:
+  name: grafana-deploy
+spec:
+  replicas: 1
+  selector:
+    # labels que o deployment vai ler
+    matchLabels:      
+      app: grafana 
+  # são anotações do pod que o deployment vai gerenciar
+  template:
+    metadata:
+      name: grafana-pod
+      labels:
+        app: grafana
+    spec:
+      volumes:
+      - name: storage-grafana
+        persistentVolumeClaim:
+          claimName: grafana-pvc
+      containers:
+      - name: grafana-container
+        image: teteo/grafana
+        volumeMounts:
+        - name: storage-grafana
+          mountPath: /storage-grafana
+        ports:
+        - containerPort: 3000       

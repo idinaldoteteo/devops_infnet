@@ -1,0 +1,29 @@
+apiVersion: apps/v1 # precisa ser assim, está dentro do apps
+kind: Deployment
+metadata:
+  name: prometheus-deploy
+spec:
+  replicas: 1
+  selector:
+    # labels que o deployment vai ler
+    matchLabels:      
+      app: prometheus 
+  # são anotações do pod que o deployment vai gerenciar
+  template:
+    metadata:
+      name: prometheus-pod
+      labels:
+        app: prometheus
+    spec:
+      volumes:
+      - name: storage-prometheus
+        persistentVolumeClaim:
+          claimName: prometheus-pvc
+      containers:
+      - name: prometheus-container
+        image: teteo/prometheus
+        volumeMounts:
+        - name: storage-prometheus
+          mountPath: /data_prometheus
+        ports:
+        - containerPort: 9090       
